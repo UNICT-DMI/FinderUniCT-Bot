@@ -10,10 +10,9 @@ on:
     paths-ignore:
       - ".gitignore"
       - "README.md"
-      - "docs/**"
 
 jobs:
-  push:
+  test:
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -21,9 +20,9 @@ jobs:
         python-version: ["3.11", "3.12"]
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
       - name: Set up Python
-        uses: actions/setup-python@v2
+        uses: actions/setup-python@v4
         with:
           python-version: ${{ matrix.python-version }}
       - name: Install dependencies
