@@ -37,8 +37,8 @@ services:
 ### Building locally
 
 ```bash
-git clone git@github.com:UNICT-DMI/FinderUniCT_Bot.git
-cd FinderUniCT_Bot
+git clone git@github.com:UNICT-DMI/FinderUniCT-Bot.git
+cd FinderUniCT-Bot
 docker build --tag finderunictbot .
 ```
 
