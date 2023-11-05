@@ -1,5 +1,5 @@
 FROM python:3-slim
-WORKDIR /finderdmibot/
+WORKDIR /finderunictbot/
 
 RUN apt update && \
     apt install -y locales && \
