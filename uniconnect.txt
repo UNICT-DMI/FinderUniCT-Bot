@@ -1,0 +1,29 @@
+# UniconneCT
+Inserimento email universitaria (controllo dominio studium.unict.it)
+invio codice momentaneo alla mail e verifica codice momentaneo e inserimento della mail in una white-list (in modo tale da non avere modo di rubare l'identità)
+
+Creazione profilo con NOME & DIPARTIMENTO (altre opzioni da valutare)
+
+Scegliere se incontrare gente random o gente dello stesso dipartimento
+
+Dopo la fine della chat si chiede se scambiarsi i propri tag telegram
+
+Cooldown nuove richieste di chat random (per evitare troppi skip)
+
+Gruppi momentanei gestiti dal bot, il gruppo verrà creato dal bot che aggiungerà gli amici che accetteranno la richiesta dell'utente iniziale, dopo un tempo prestabilito il gruppo verrà eliminato dal bot (oppure si può scegliere di non farlo
+scomparire, dunque il bot dopo la creazione uscirà dal gruppo)
+
+Sistema di report abusi
+
+Inibizione media e link (evitiamo gli abusi alla base)
+
+Sondaggi per migliorare la qualità del bot
+
+Canale "Cerca esperienze" che mostra le richieste di uscire di altri utenti
+
+Nel canale verranno proposte richieste di uscite con numeri massimi di entrate o illimitati
+
+Canale "Luoghi" dove vengono proposti luoghi di incontri
+
+Nel canale "Luoghi", una sezione "Eventi" che mostra gli eventi più importanti in zona
+
