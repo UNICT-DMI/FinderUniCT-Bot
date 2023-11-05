@@ -1,5 +1,5 @@
 # Finder-UniCT Bot
-A Telegram bot for UNICT students enabling them to connect semi-anonymously.
+A Telegram bot for [UNICT (University of Catania)](https://www.unict.it/en) students enabling them to connect semi-anonymously.  
 
 ## Features
 - **Login**: Authenticate with your UniCT email.
