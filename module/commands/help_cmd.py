@@ -2,7 +2,7 @@
 from telegram import Update
 from telegram.ext import CallbackContext
 
-from data.constants import HELP_CMD_TEXT
+from module.data.constants import HELP_CMD_TEXT
 
 def help_cmd(update: Update, context: CallbackContext) -> None:
     """Called by the /help command

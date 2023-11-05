@@ -32,7 +32,6 @@ def add_handlers(dp:Dispatcher) -> None:
     dp.add_handler(CommandHandler("report", report))
     dp.add_handler(MessageHandler(Filters.regex(REPORT) & Filters.chat_type.private, report))
     dp.add_handler(CommandHandler("chatid", lambda u, c: u.message.reply_text(str(u.message.chat_id))))
-    
 
 def main() -> None:
     """Main function"""
