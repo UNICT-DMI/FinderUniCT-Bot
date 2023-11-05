@@ -1,9 +1,13 @@
 # Finder-UniCT Bot
 A Telegram bot for UNICT students that allows students to get to know each other semi-anonymously.
 
-## How does it work?
+## Bot's features
 
-This bot allows you to get straight to your telegram chat:
+- Login system with UniCT email
+- Chat with strangers
+- Choose your interests and the bot will match you with someone with similar tastes as yours
+- Global chat with all UniCT students
+
 
 Send **'/start'** to start it, **'/help'** to see a list of commands.
 Please note that the commands and their answers are in Italian.
