@@ -43,11 +43,11 @@ services:
 ```
 **Local Build**:
 
-\```bash
+```bash
 git clone git@github.com:UNICT-DMI/FinderUniCT-Bot.git
 cd FinderUniCT-Bot
 docker build --tag finderunictbot .
-\```
+```
 
 #### Using Docker CLI
 
@@ -58,14 +58,14 @@ docker build --tag finderunictbot .
 5. Run:
 
    - On Windows:
-     \```bash
+     ```bash
      docker run -v "C:\path\to\your\settings.yaml:/finderunictbot/config/settings.yaml" finderunictbot
-     \```
+     ```
      
    - On Linux:
-     \```bash
+     ```bash
      docker run -v "/path/to/your/settings.yaml:/finderunictbot/config/settings.yaml" finderunictbot
-     \```
+     ```
 
 ### Running Natively
 
