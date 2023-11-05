@@ -1,32 +1,26 @@
 # Finder-UniCT Bot
-A Telegram bot for UNICT students that allows students to get to know each other semi-anonymously.
+A Telegram bot for UNICT students enabling them to connect semi-anonymously.
 
-## Bot's features
+## Features
+- **Login**: Authenticate with your UniCT email.
+- **Random Chat**: Engage in conversations with strangers.
+- **Interest Matching**: Specify your interests and connect with students of similar tastes.
+- **Global Chat**: Join a community chat with all UniCT students.
 
-- Login system with UniCT email
-- Chat with strangers
-- Choose your interests and the bot will match you with someone with similar tastes as yours
-- Global chat with all UniCT students
+> **Note**: The bot commands and their responses are in Italian. Use `/start` to initiate and `/help` for a command list.
 
+## Getting Started
 
-Send **'/start'** to start it, **'/help'** to see a list of commands.
-Please note that the commands and their answers are in Italian.
+### Obtain a Telegram Bot Token
+1. Open Telegram and search for @BotFather.
+2. Start a conversation with `/start`.
+3. Create a new bot using `/newbot`.
+4. Name your bot and assign a tag (it should end with `bot`).
+5. Copy the provided token.
 
----
+### Running with Docker
+#### Using Docker Compose
 
-## How to create a Telegram bot and get its token
-To start testing this bot you need to get a Telegram Bot's token:
-- Go to Telegram and search for @BotFather
-- Start it using `/start`
-- Create a new bot using the `/newbot`command
-- Give it a name and a tag (the tag must end with `bot`)
-- Now copy the token it gives you
-
-## Requirements
-- Pip3
-- Python3
-
-## Docker-compose
 ```yaml
 version: '2'
 services:
@@ -34,38 +28,41 @@ services:
     image: ghcr.io/unict-dmi/finderunictbot
     container_name: finderunictbot
     volumes:
-      - <your-settings.yaml>:/app/config/settings.yaml
+      - <path-to-your-settings.yaml>:/app/config/settings.yaml
     restart: unless-stopped
+
 ```
+**Local Build**:
 
-### Building locally
-
-```bash
+\```bash
 git clone git@github.com:UNICT-DMI/FinderUniCT-Bot.git
 cd FinderUniCT-Bot
 docker build --tag finderunictbot .
-```
+\```
 
----
+#### Using Docker CLI
 
-## Docker CLI
-To test the bot with docker compose on Windows follow these steps:
-1) Clone the repository
-2) Copy the existing `config/settings.yaml.dist` and rename it into `config/settings.yaml`
-3) In `token` add your Telegram bot's token
-4) Open the terminal on the cloned repository and run ```docker build -t finderunictbot .``` to build the new image
-5) Next run ```docker run -v "/c/Users/your/absolute/path/finderunictbot/config/settings.yaml":"/finderunictbot/config/settings.yaml" finderunictbot```
+1. Clone the repository.
+2. Make a copy of `config/settings.yaml.dist` and rename it to `config/settings.yaml`.
+3. Add your Telegram bot's token in the `token` field.
+4. Build the image: `docker build -t finderunictbot .`
+5. Run:
 
-To test it with Linux follow the steps above to the point 4) and:
+   - On Windows:
+     \```bash
+     docker run -v "C:\path\to\your\settings.yaml:/finderunictbot/config/settings.yaml" finderunictbot
+     \```
+     
+   - On Linux:
+     \```bash
+     docker run -v "/path/to/your/settings.yaml:/finderunictbot/config/settings.yaml" finderunictbot
+     \```
 
-5) Run ```$ docker run -v "/home/your/absolute/path/finderunictbot/config/settings.yaml":"/finderunictbot/config/settings.yaml" finderunictbot```
+### Running Natively
 
-
-## Run live
-To test the bot directly on your machine follow these steps:
-1) Clone this repository
-2) Copy the existing `config/settings.yaml.dist` and rename it into `config/settings.yaml`
-3) In `token` add your Telegram bot's token
-4) Run `$ python main.py` to start the bot
+1. Clone this repository.
+2. Copy `config/settings.yaml.dist` to `config/settings.yaml`.
+3. Update the `token` field with your Telegram bot's token.
+4. Execute: `python main.py`.
 
 ## Credits
