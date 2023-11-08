@@ -47,31 +47,31 @@ services:
 
 1. Clone the repository:
 ```bash
-git clone git@github.com:UNICT-DMI/FinderUniCT-Bot.git
+$ git clone git@github.com:UNICT-DMI/FinderUniCT-Bot.git
 ```
 2. Make a copy of `config/settings.yaml.dist` and rename it to `config/settings.yaml`.
 3. Add your Telegram bot's token in the `token` field.
 4. Build the image:
 ```bash
-    cd FinderUniCT-Bot
-    docker build -t finderunictbot .
+    $ cd FinderUniCT-Bot
+    $ docker build -t finderunictbot .
 ```
 5. Run:
 
    - On Windows:
      ```bash
-     docker run -v "C:\path\to\your\settings.yaml:/finderunictbot/config/settings.yaml" finderunictbot
+     $ docker run -v "C:\path\to\your\settings.yaml:/finderunictbot/config/settings.yaml" finderunictbot
      ```
      
    - On Linux:
      ```bash
-     docker run -v "/path/to/your/settings.yaml:/finderunictbot/config/settings.yaml" finderunictbot
+     $ docker run -v "/path/to/your/settings.yaml:/finderunictbot/config/settings.yaml" finderunictbot
      ```
 
 ### Pull image from remote repository and run
 
 ```bash
-docker run -v "/local/path/to/settings.yml":/finderunictbot/config/settings.yml -t ghcr.io/unict-dmi/finderunict-bot:main
+$ docker run -v "/local/path/to/settings.yml":/finderunictbot/config/settings.yml -t ghcr.io/unict-dmi/finderunict-bot:main
 ```
 
 ### Running Natively
@@ -79,6 +79,9 @@ docker run -v "/local/path/to/settings.yml":/finderunictbot/config/settings.yml 
 1. Clone this repository.
 2. Copy `config/settings.yaml.dist` to `config/settings.yaml`.
 3. Update the `token` field with your Telegram bot's token.
-4. Execute: `python main.py`.
+4. Execute: 
+```bash
+$ python main.py
+```
 
 ## Credits
