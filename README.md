@@ -21,10 +21,12 @@ A Telegram bot for [UNICT (University of Catania)](https://www.unict.it/en) stud
 # Usage
 The bot operates through a set of commands and reacts to specific triggers. Below is an overview of the bot's main commands and their descriptions:
 
-/start: Sends a welcome message. (Translation: messaggio di benvenuto)
-/help: Provides guidance on available commands. (Translation: ricevi aiuto sui comandi)
-/report: Allows users to report an issue or problem. (Translation: segnala un problema)
-/chatid: Returns the chat ID of the current conversation. This can be useful for debugging and administration purposes.
+- ```/start```: Sends a welcome message. (Translation: messaggio di benvenuto)
+- ```/help```: Provides guidance on available commands. (Translation: ricevi aiuto sui comandi)
+- ```/report```: Allows users to report an issue or problem. (Translation: segnala un problema)
+- ```/chatid```: Returns the chat ID of the current conversation. 
+
+This can be useful for debugging and administration purposes.
 The bot is also programmed to handle messages and commands in private chats, ensuring the safety and privacy of user interactions.
 
 ### Running with Docker
