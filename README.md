@@ -41,7 +41,7 @@ services:
     restart: unless-stopped
 
 ```
-####Building and running locally
+#### Building and running locally
 
 1. Clone the repository:
 ```bash
@@ -66,7 +66,7 @@ git clone git@github.com:UNICT-DMI/FinderUniCT-Bot.git
      docker run -v "/path/to/your/settings.yaml:/finderunictbot/config/settings.yaml" finderunictbot
      ```
 
-###Pull image from remote repository and run
+### Pull image from remote repository and run
 
 ```bash
 docker run -v "/local/path/to/settings.yml":/finderunictbot/config/settings.yml -t ghcr.io/unict-dmi/finderunict-bot:main
