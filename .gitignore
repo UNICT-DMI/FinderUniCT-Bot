@@ -114,8 +114,7 @@ dmypy.json
 .pyre/
 
 # Custom
-classes/*.pyc
+compose.yaml
 config/settings.yaml
-module/*.pyc
 .vscode
 .idea
