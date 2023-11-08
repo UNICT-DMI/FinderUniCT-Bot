@@ -34,27 +34,26 @@ The bot is also programmed to handle messages and commands in private chats, ens
 version: '2'
 services:
   finderdmibot:
-    image: ghcr.io/unict-dmi/finderunictbot
+    image: ghcr.io/unict-dmi/finderunict-bot:main
     container_name: finderunictbot
     volumes:
-      - <path-to-your-settings.yaml>:/app/config/settings.yaml
+      - "path-to-your-settings.yaml":/finderunictbot/config/settings.yaml
     restart: unless-stopped
 
 ```
-**Local Build**:
+####Building and running locally
 
+1. Clone the repository:
 ```bash
 git clone git@github.com:UNICT-DMI/FinderUniCT-Bot.git
-cd FinderUniCT-Bot
-docker build --tag finderunictbot .
 ```
-
-#### Using Docker CLI
-
-1. Clone the repository.
 2. Make a copy of `config/settings.yaml.dist` and rename it to `config/settings.yaml`.
 3. Add your Telegram bot's token in the `token` field.
-4. Build the image: `docker build -t finderunictbot .`
+4. Build the image:
+```bash
+    cd FinderUniCT-Bot
+    docker build -t finderunictbot .
+```
 5. Run:
 
    - On Windows:
@@ -66,6 +65,12 @@ docker build --tag finderunictbot .
      ```bash
      docker run -v "/path/to/your/settings.yaml:/finderunictbot/config/settings.yaml" finderunictbot
      ```
+
+###Pull image from remote repository and run
+
+```bash
+docker run -v "/local/path/to/settings.yml":/finderunictbot/config/settings.yml -t ghcr.io/unict-dmi/finderunict-bot:main
+```
 
 ### Running Natively
 
