@@ -1,12 +1,12 @@
 """
-    /login mock command to test the login system
+    /login command
 """
 from telegram import Update
-from telegram.ext import CallbackContext
+from telegram.ext import ContextTypes
 
 from module.data import LOGIN_CMD_TEXT
 
-def login(update: Update, context: CallbackContext) -> None:
+async def login(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     """
         Called by the /login command.
 
@@ -19,7 +19,7 @@ def login(update: Update, context: CallbackContext) -> None:
             update: update event
             context: context passed by the handler
     """
-
-    context.bot.sendMessage(
-        chat_id=update.message.chat_id, text=LOGIN_CMD_TEXT
+    await context.bot.send_message(
+        chat_id=update.effective_chat.id,
+        text=LOGIN_CMD_TEXT
     )

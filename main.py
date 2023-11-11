@@ -1,47 +1,58 @@
-"""main module"""
-from telegram import BotCommand
-from telegram.ext import CommandHandler, MessageHandler, Updater, Dispatcher, Filters
-
-from module.commands import start, report, help_cmd
+"""
+    main module
+"""
+from module.commands import start, report, help
 from module.data import HELP, REPORT
 
-def add_commands(up: Updater) -> None:
-    """Adds list of commands with their description to the boy
+from telegram import BotCommand, Update
+from telegram.ext import filters, Application, ApplicationBuilder, CommandHandler, MessageHandler, ContextTypes
 
-    Args:
-        up(Updater): supplied Updater
+async def add_commands(app: Application) -> None:
+    """
+        Adds a list of commands with their description to the bot
+
+        Args:
+            app (Application): the built application
     """
     commands = [
         BotCommand("start", "messaggio di benvenuto"),
         BotCommand("help", "ricevi aiuto sui comandi"),
-        BotCommand("report", "segnala un problema")
+        BotCommand("report", "segnala un problema"),
+        BotCommand("login", "procedura di autenticazione")
     ]
-    up.bot.set_my_commands(commands=commands)
 
-def add_handlers(dp:Dispatcher) -> None:
-    """Adds all the handlers the bot will react to
+    await app.bot.set_my_commands(commands)
 
-    Args:
-        dp:suppplied Dispatcher
+def add_handlers(app: Application) -> None:
     """
+        Adds all the handlers to the bot
 
-    dp.add_handler(CommandHandler("start", start, Filters.chat_type.private))
-    dp.add_handler(CommandHandler("chatid", lambda u, c: u.message.reply_text(str(u.message.chat_id))))
-    dp.add_handler(CommandHandler("help", help_cmd, Filters.chat_type.private))
-    dp.add_handler(MessageHandler(Filters.regex(HELP) & Filters.chat_type.private, help_cmd))
-    dp.add_handler(CommandHandler("report", report))
-    dp.add_handler(MessageHandler(Filters.regex(REPORT) & Filters.chat_type.private, report))
-    dp.add_handler(CommandHandler("chatid", lambda u, c: u.message.reply_text(str(u.message.chat_id))))
+        Args:
+            app (Application): the built application
+    """
+    async def chatid(update: Update, context: ContextTypes.DEFAULT_TYPE):
+        await context.bot.send_message(
+            chat_id=update.effective_chat.id,
+            text=str(update.effective_chat.id)
+        )
 
-def main() -> None:
-    """Main function"""
-    updater = Updater()
-    add_commands(updater)
-    add_handlers(updater.dispatcher)
+    handlers = [
+        CommandHandler("start", start, filters.ChatType.PRIVATE),
+        CommandHandler("chatid", chatid),
+        CommandHandler("help", help, filters.ChatType.PRIVATE),
+        MessageHandler(filters.Regex(HELP) & filters.ChatType.PRIVATE, help),
+        CommandHandler("report", report),
+        MessageHandler(filters.Regex(REPORT) & filters.ChatType.PRIVATE, report),
+    ]
 
-    updater.start_polling()
-    updater.idle()
+    app.add_handlers(handlers)
 
+def main():
+    app = ApplicationBuilder().token("TOKEN").build()
+    add_commands(app)
+    add_handlers(app)
+
+    app.run_polling()
 
 if __name__ == "__main__":
     main()
