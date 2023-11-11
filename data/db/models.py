@@ -1,6 +1,7 @@
 """
     Definition of database tables
 """
+# pylint: disable=too-few-public-methods
 from sqlalchemy.orm import Mapped, mapped_column
 from sqlalchemy import String
 from . import Base
