@@ -1,8 +1,10 @@
-"""/report command"""
+"""
+    /report command
+"""
 from telegram import Update
-from telegram.ext import CallbackContext
+from telegram.ext import ContextTypes
 
-async def report(update: Update, context: CallbackContext) -> None:
+async def report(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     """
         Called by the /report command
         Sends a report to the admin group
