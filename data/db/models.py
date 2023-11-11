@@ -14,18 +14,14 @@ class User(Base):
         User table, maps the following fields:
         - id (int): primary key, autoincrement
         - email (str): hexdigest of salted user's email hashed with sha256
-        - salt (str): random string used to salt the user's email (8 bytes)
         - chat_id (int): id of the chat the user is in
     """
     __tablename__ = "user"
 
     id: Mapped[int] = mapped_column(primary_key=True, autoincrement=True)
-    email: Mapped[str] = mapped_column(String(64))
-    salt: Mapped[str] = mapped_column(String(16))
-    chat_id: Mapped[int]
+    email: Mapped[str] = mapped_column(String(64), unique=True)
+    chat_id: Mapped[int] = mapped_column(unique=True)
 
     def __init__(self, email: str, chat_id: int):
-        salt = os.urandom(8)
-        self.email = hashlib.sha256(email.encode() + salt).hexdigest()
-        self.salt = salt.hex()
+        self.email = hashlib.sha256(email.encode()).hexdigest()
         self.chat_id = chat_id
