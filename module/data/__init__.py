@@ -4,5 +4,4 @@ from .constants import (
     HELP,
     HELP_CMD_TEXT,
     START_CMD_TEXT,
-    LOGIN_CMD_TEXT,
 )
