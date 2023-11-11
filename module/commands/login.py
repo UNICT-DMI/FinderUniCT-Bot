@@ -22,7 +22,7 @@ async def login(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
             context: context passed by the handler
     """
     args = update.message.text.strip().split()[1:]
-    
+
     if len(args) != 1:
         await context.bot.send_message(
             chat_id=update.effective_chat.id,
