@@ -2,6 +2,9 @@
     Definition of database tables
 """
 # pylint: disable=too-few-public-methods
+import os
+import hashlib
+
 from sqlalchemy.orm import Mapped, mapped_column
 from sqlalchemy import String
 from . import Base
@@ -17,6 +20,12 @@ class User(Base):
     __tablename__ = "user"
 
     id: Mapped[int] = mapped_column(primary_key=True, autoincrement=True)
-    email: Mapped[str] = mapped_column(String(80))
+    email: Mapped[str] = mapped_column(String(64))
     salt: Mapped[str] = mapped_column(String(16))
     chat_id: Mapped[int]
+
+    def __init__(self, email: str, chat_id: int):
+        salt = os.urandom(8)
+        self.email = hashlib.sha256(email.encode() + salt).hexdigest()
+        self.salt = salt.hex()
+        self.chat_id = chat_id
