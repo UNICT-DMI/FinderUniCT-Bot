@@ -1,6 +1,8 @@
 """
     /login command
 """
+import hashlib
+
 from telegram import Update
 from telegram.ext import ContextTypes
 
@@ -66,6 +68,15 @@ async def login(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
         await context.bot.send_message(
             chat_id=update.effective_chat.id,
             text="Il chat_id non corrisponde..."
+        )
+
+        return
+
+    email_digest = hashlib.sha256(email.encode()).hexdigest()
+    if result.email != email_digest:
+        await context.bot.send_message(
+            chat_id=update.effective_chat.id,
+            text="L'email non corrisponde..."
         )
 
         return
