@@ -30,6 +30,7 @@ async def login(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
             chat_id=update.effective_chat.id,
             text="Utilizzo sbagliato. /login <email>"
         )
+        
         return
 
     email = args[0]
@@ -42,22 +43,22 @@ async def login(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
                 "(deve finire con @studium.unict.it)"
             )
         )
-        return
-
-    session = Session()
-
-    stmt = select(User).where(User.chat_id == update.effective_chat.id)
-    result = session.scalars(stmt).first()
-    if result is None:
-        await context.bot.send_message(
-            chat_id=update.effective_chat.id,
-            text="Non sei registrato, procedo alla registrazione.."
-        )
-
-        session.add(User(email=email, chat_id=update.effective_chat.id))
-        session.commit()
 
         return
+
+    with Session() as session:
+        stmt = select(User).where(User.chat_id == update.effective_chat.id)
+        result = session.scalars(stmt).first()
+        if result is None:
+            await context.bot.send_message(
+                chat_id=update.effective_chat.id,
+                text="Non sei registrato, procedo alla registrazione.."
+            )
+
+            session.add(User(email=email, chat_id=update.effective_chat.id))
+            session.commit()
+
+            return
 
     await context.bot.send_message(
         chat_id=update.effective_chat.id,
