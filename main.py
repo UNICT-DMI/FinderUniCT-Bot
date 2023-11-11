@@ -1,7 +1,7 @@
 """
     main module
 """
-from module.commands import start, report, help
+from module.commands import start, report, help, login
 from module.data import HELP, REPORT
 
 from telegram import BotCommand, Update
@@ -43,6 +43,7 @@ def add_handlers(app: Application) -> None:
         MessageHandler(filters.Regex(HELP) & filters.ChatType.PRIVATE, help),
         CommandHandler("report", report),
         MessageHandler(filters.Regex(REPORT) & filters.ChatType.PRIVATE, report),
+        CommandHandler("login", login)
     ]
 
     app.add_handlers(handlers)
