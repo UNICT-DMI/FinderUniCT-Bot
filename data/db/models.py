@@ -1,14 +1,13 @@
 """
     Definition of database tables
 """
-# pylint: disable=too-few-public-methods
-import os
 import hashlib
 
 from sqlalchemy.orm import Mapped, mapped_column
 from sqlalchemy import String
 from . import Base
 
+# pylint: disable=too-few-public-methods
 class User(Base):
     """
         User table, maps the following fields:
