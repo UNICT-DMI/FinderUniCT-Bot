@@ -30,7 +30,7 @@ async def login(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
             chat_id=update.effective_chat.id,
             text="Utilizzo sbagliato. /login <email>"
         )
-        
+
         return
 
     email = args[0]
@@ -62,7 +62,7 @@ async def login(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
 
     await context.bot.send_message(
         chat_id=update.effective_chat.id,
-        text="Sei gia' registrato! Controllo se il chat_id corrisponde..."
+        text="Sei gia' registrato! Controllo se i dati corrispondono..."
     )
 
     if result.chat_id != update.effective_chat.id:
