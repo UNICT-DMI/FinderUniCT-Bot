@@ -1,7 +1,7 @@
 """
     main module
 """
-from module.commands import start, report, help, login
+from module.commands import start, report, help, register_conv_handler
 from module.data import HELP, REPORT
 
 from telegram import BotCommand, Update
@@ -18,7 +18,7 @@ async def add_commands(app: Application) -> None:
         BotCommand("start", "messaggio di benvenuto"),
         BotCommand("help", "ricevi aiuto sui comandi"),
         BotCommand("report", "segnala un problema"),
-        BotCommand("login", "procedura di autenticazione")
+        BotCommand("register", "procedura di registrazione")
     ]
 
     await app.bot.set_my_commands(commands)
@@ -43,14 +43,13 @@ def add_handlers(app: Application) -> None:
         MessageHandler(filters.Regex(HELP) & filters.ChatType.PRIVATE, help),
         CommandHandler("report", report),
         MessageHandler(filters.Regex(REPORT) & filters.ChatType.PRIVATE, report),
-        CommandHandler("login", login)
+        register_conv_handler()
     ]
 
     app.add_handlers(handlers)
 
 def main():
-    app = ApplicationBuilder().token("TOKEN").build()
-    add_commands(app)
+    app = ApplicationBuilder().token("TOKEN").post_init(add_commands).build()
     add_handlers(app)
 
     app.run_polling()

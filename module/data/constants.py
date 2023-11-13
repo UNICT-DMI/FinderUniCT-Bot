@@ -4,7 +4,7 @@ START_CMD_TEXT = "Benvenuto! Questo bot è stato realizzato dagli studenti del C
 
 HELP_CMD_TEXT = '\n'.join((
     "📬 /report Fornisce la possibilità di poter inviare una segnalazione agli sviluppatori riguardante qualsiasi disservizio",
-    "🔑 /login Permette di effettuare il login al sistema"
+    "🔑 /register Permette di effettuare la registrazione al sistema"
 ))
 
 REPORT = "Segnalazioni Rappresentanti 📬"

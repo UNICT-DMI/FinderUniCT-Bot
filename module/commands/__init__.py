@@ -4,4 +4,4 @@
 from .start import start
 from .help import help
 from .report import report
-from .login import login
+from .register import register_conv_handler
