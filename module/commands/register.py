@@ -18,6 +18,7 @@ class State(Enum):
     """
     EMAIL = 1
     OTP = 2
+    END = ConversationHandler.END
 
 async def register_entry(update: Update, context: ContextTypes.DEFAULT_TYPE) -> State:
     """
@@ -30,7 +31,7 @@ async def register_entry(update: Update, context: ContextTypes.DEFAULT_TYPE) -> 
             context: context passed by the handler
 
         Returns:
-            State: the next state of the conversation
+            The next state of the conversation
     """
 
     await context.bot.send_message(
@@ -40,7 +41,7 @@ async def register_entry(update: Update, context: ContextTypes.DEFAULT_TYPE) -> 
 
     return State.EMAIL
 
-async def email_checker(update: Update, context: ContextTypes.DEFAULT_TYPE) -> State | int:
+async def email_checker(update: Update, context: ContextTypes.DEFAULT_TYPE) -> State:
     """
         Checks if the user isn't already registered.
 
@@ -49,8 +50,7 @@ async def email_checker(update: Update, context: ContextTypes.DEFAULT_TYPE) -> S
             context: context passed by the handler
 
         Returns:
-            State: the next state of the conversation
-            int: constant ConversationHandler.END (if the user is already registered)
+            The next state of the conversation
     """
     email = update.message.text.strip()
     email_digest = hashlib.sha256(email.encode()).hexdigest()
@@ -65,7 +65,7 @@ async def email_checker(update: Update, context: ContextTypes.DEFAULT_TYPE) -> S
             text="Sei gia' registrato!"
         )
 
-        return ConversationHandler.END
+        return State.END
 
     context.user_data["email"] = email
     context.user_data["otp"] = "123456"
@@ -78,7 +78,7 @@ async def email_checker(update: Update, context: ContextTypes.DEFAULT_TYPE) -> S
 
     return State.OTP
 
-async def otp_checker(update: Update, context: ContextTypes.DEFAULT_TYPE) -> State | int:
+async def otp_checker(update: Update, context: ContextTypes.DEFAULT_TYPE) -> State:
     """
         Checks if the OTP sent to the email is valid.
 
@@ -87,8 +87,7 @@ async def otp_checker(update: Update, context: ContextTypes.DEFAULT_TYPE) -> Sta
             context: context passed by the handler
 
         Returns:
-            State: returns State.OTP if the OTP wasn't correct.
-            int: constant ConversationHandler.END (if the OTP was correct or too many wrong tries)
+            The next state of the conversation
     """
     if context.user_data["tries"] >= 3:
         await context.bot.send_message(
@@ -96,7 +95,7 @@ async def otp_checker(update: Update, context: ContextTypes.DEFAULT_TYPE) -> Sta
             text="Hai esaurito il numero di tentativi, riprova piu' tardi"
         )
 
-        return ConversationHandler.END
+        return State.END
 
     otp = update.message.text.strip()
     if otp != context.user_data["otp"]:
@@ -120,43 +119,75 @@ async def otp_checker(update: Update, context: ContextTypes.DEFAULT_TYPE) -> Sta
 
     return ConversationHandler.END
 
+async def invalid_email(update: Update, context: ContextTypes.DEFAULT_TYPE) -> State:
+    """
+        Handles invalid email
+
+        Args:
+            update: Update event
+            context: context passed by the handler
+
+        Returns:
+            The next state of the conversation
+    """
+    await context.bot.send_message(
+        chat_id=update.effective_chat.id,
+        text="Email non valida, riprova"
+    )
+
+    return State.EMAIL
+
+async def invalid_otp(update: Update, context: ContextTypes.DEFAULT_TYPE) -> State:
+    """
+        Handles invalid OTP
+
+        Args:
+            update: Update event
+            context: context passed by the handler
+
+        Returns:
+            The next state of the conversation
+    """
+    await context.bot.send_message(
+        chat_id=update.effective_chat.id,
+        text="OTP non valido, riprova"
+    )
+
+    return State.OTP
+
+async def cancel(update: Update, context: ContextTypes.DEFAULT_TYPE) -> State:
+    """
+        Handles invalid email
+
+        Args:
+            update: Update event
+            context: context passed by the handler
+
+        Returns:
+            The next state of the conversation
+    """
+    context.bot.send_message(
+        chat_id=update.effective_chat.id,
+        text="Registrazione annullata!"
+    )
+
+    return State.END
+
 def register_conv_handler() -> ConversationHandler:
     """
         Creates the /register ConversationHandler.
 
         States of the command:
-            - State.EMAIL: Waits for a text message containing the email (should match the regex)
-            - State.OTP: Waits for a text message containing the OTP sent to the email address.
+            - State.EMAIL: Waits for a text message containing the email
+                           (should match the regex)
+            - State.OTP: Waits for a text message containing the OTP sent to the email.
+                         (should match the regex)
 
         Returns:
             ConversationHandler: the created handler
     """
     email_regex = re.compile(r"^[a-z]+\.[a-z]+@studium\.unict\.it$")
     otp_regex = re.compile(r"^\d{6}$")
-
-    async def invalid_email(update: Update, context: ContextTypes.DEFAULT_TYPE) -> State:
-        await context.bot.send_message(
-            chat_id=update.effective_chat.id,
-            text="Email non valida, riprova"
-        )
-
-        return State.EMAIL
-
-    async def invalid_otp(update: Update, context: ContextTypes.DEFAULT_TYPE) -> State:
-        await context.bot.send_message(
-            chat_id=update.effective_chat.id,
-            text="OTP non valido, riprova"
-        )
-
-        return State.OTP
-
-    async def cancel(update: Update, context: ContextTypes.DEFAULT_TYPE) -> int:
-        context.bot.send_message(
-            chat_id=update.effective_chat.id,
-            text="Registrazione annullata!"
-        )
-
-        return ConversationHandler.END
 
     return ConversationHandler(
         entry_points=[CommandHandler("register", register_entry)],
