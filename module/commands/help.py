@@ -1,13 +1,13 @@
-"""/start command"""
+"""/help command"""
 from telegram import Update
 from telegram.ext import ContextTypes
 
-from module.data import START_CMD_TEXT
+from module.data.constants import HELP_CMD_TEXT
 
-async def start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
+async def help(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     """
-        Called by the /start command
-        Sends a welcome message
+        Called by the /help command
+        Sends a list of the avaible bot's commands
 
         Args:
             update: update event
@@ -15,5 +15,5 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     """
     await context.bot.send_message(
         chat_id=update.effective_chat.id,
-        text=START_CMD_TEXT
+        text=HELP_CMD_TEXT
     )
