@@ -34,13 +34,6 @@ class OTPSender:
 
         Attributes:
             authenticated (bool): True if the user is authenticated, False otherwise.
-
-        Methods:
-            login() -> None: 
-                Logs in to the SMTP server. Modifies the authenticated attribute.
-            send(to: str) -> str | None:
-                Sends a randomly generated OTP to the specified email address.
-                Returns the OTP sent to the specified email address.
     """
     def __init__(self):
         try:
@@ -53,10 +46,11 @@ class OTPSender:
 
     def login(self) -> None:
         """
-            Logs in to the SMTP server.
+            Logs in to the SMTP server. Check the `authenticated` to see if it
+            was successful or not.
 
-            Returns:
-                None: check self.authenticated for login status.
+            Raises:
+                OTPLoginFailed: Something went wrong while trying to contact on the SMTP server.
         """
         if self.authenticated:
             return
@@ -72,10 +66,14 @@ class OTPSender:
             Sends a randomly generated OTP to the specified email address.
 
             Args:
-                to (str): The email address of the recipient.
+                to: The email address of the recipient.
 
             Returns:
-                str: The OTP sent to the specified email address.
+                The OTP sent to the specified email address.
+
+            Raises:
+                OTPNotAuthenticated: You have to be logged in order to send mails.
+                OTPCodeNotSent: Something went wrong while trying to send the mail.
         """
         if not self.authenticated:
             raise OTPNotAuthenticated('Not authenticated.')
