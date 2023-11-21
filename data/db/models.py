@@ -5,7 +5,7 @@ import hashlib
 
 from sqlalchemy.orm import Mapped, mapped_column
 from sqlalchemy import String
-from . import Base
+from .base import Base
 
 # pylint: disable=too-few-public-methods
 class User(Base):
